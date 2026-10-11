@@ -114,3 +114,22 @@ function gameObject() {
         },
     };
 }
+
+//Function to return a player's score points
+function numPointsScored(playerName) {
+    for(const [key, value] of Object.entries(gameObject(1))) {
+        
+
+        if(value.players[playerName]) {
+            return value.players[playerName].points;
+
+        }
+    }
+
+}
+
+//Function to return shoesize of a player
+
+
+
+ console.log(numPointsScored('Brook Lopez'))
