@@ -117,7 +117,7 @@ function gameObject() {
 
 //Function to return a player's score points
 function numPointsScored(playerName) {
-    for(const [key, value] of Object.entries(gameObject(1))) {
+    for(const [key, value] of Object.entries(gameObject())) {
         
 
         if(value.players[playerName]) {
@@ -129,7 +129,86 @@ function numPointsScored(playerName) {
 }
 
 //Function to return shoesize of a player
+function shoeSize(playerName) {
+    for(const [key, value] of Object.entries(gameObject())) {
+
+        if(value.players[playerName]) {
+            return value.players[playerName].shoe;
+        }
+    }
+
+        
+}
+
+//Function to return an array of a team's colors
+function teamColors(teamName) {
+    const data = gameObject();
+
+    for(const team of Object.values(data)) {
+
+        if(team.teamName === teamName) {
+            return team.colors;
+
+        }
+    }
+
+}
+
+//Function to return an array of both team names
+function teamNames() {
+    const data = gameObject();
+
+   return Object.values(data).map(team => team.teamName)
+}
 
 
+//Function to return player numbers
 
- console.log(numPointsScored('Brook Lopez'))
+function playerNumbers(teamName) {
+    const data = gameObject();
+
+    for(const teamKey in data) {
+
+        if(data[teamKey].teamName === teamName) {
+            return Object.values(data[teamKey].players).map(player => player.number);
+        }
+    }
+}
+
+
+//Function to return an object with all the stats of a player
+
+function playerStats(playerName) {
+    const data = gameObject();
+
+    for(const teamKey in data) {
+        const team = data[teamKey];
+
+        if(team.players[playerName]) {
+
+            return team.players[playerName];
+        }
+    }
+
+}
+
+//Function that identifies the player with the largest shoesize and returns their rebounds
+
+function bigShoeRebounds() {
+    const data = gameObject();
+    const allPlayers = [
+        ...Object.values(data.home.players),
+        ...Object.values(data.away.players)
+    ];
+    const biggestShoe = allPlayers.reduce((biggest, player) => player.shoe > biggest.shoe ? player : biggest);
+    return biggestShoe.rebounds;
+
+}
+
+ console.log(numPointsScored('Brook Lopez'));
+ console.log(shoeSize('Brook Lopez'));
+ console.log(teamColors('Brooklyn Nets'));
+ console.log(teamNames());
+ console.log(playerNumbers('Brooklyn Nets'));
+ console.log(playerStats('Brook Lopez'));
+ console.log(bigShoeRebounds());
